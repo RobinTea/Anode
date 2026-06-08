@@ -1,3 +1,5 @@
+docu is combined junk of cursor, copilot, mistreal, gemini
+
 # Anode
 
 Local-first novelist writing app — **Tauri 2**, **Svelte 5**, **TipTap**, **Rust** (`anode-core`).
