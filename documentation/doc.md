@@ -1,3 +1,4 @@
+docu is combined junk of cursor, copilot, mistreal, gemini
 # Anode - Local-First Novelist Writing App
 
 ## Table of Contents
