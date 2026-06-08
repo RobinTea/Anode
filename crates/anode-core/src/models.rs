@@ -58,6 +58,8 @@ pub struct PageMeta {
     pub sort_key: i64,
     pub status: String,
     pub word_count: u64,
+    #[serde(default)]
+    pub notes: String,
     pub updated_at: DateTime<Utc>,
 }
 
@@ -97,4 +99,30 @@ pub struct SnapshotInfo {
     pub filename: String,
     pub timestamp: String,
     pub size_bytes: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TodoItem {
+    pub id: Uuid,
+    pub text: String,
+    pub done: bool,
+    pub sort_key: i64,
+    pub created_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DailyQuest {
+    pub date: String,
+    pub word_count: u64,
+    pub goal: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Character {
+    pub id: Uuid,
+    pub name: String,
+    pub role: String,
+    pub description: String,
+    pub notes: String,
+    pub updated_at: String,
 }

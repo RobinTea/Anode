@@ -73,6 +73,10 @@ pub fn library_root(config: &AppConfig) -> Option<PathBuf> {
         .filter(|p| p.exists() || p.parent().is_some())
 }
 
+pub fn library_db(library: &Path) -> PathBuf {
+    library.join("library.db")
+}
+
 pub fn book_dir(library: &Path, book_id: uuid::Uuid) -> PathBuf {
     library.join("books").join(book_id.to_string())
 }

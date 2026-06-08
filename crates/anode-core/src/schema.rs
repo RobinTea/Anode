@@ -40,6 +40,8 @@ pub fn init_book_db(conn: &Connection) -> Result<()> {
             sort_key INTEGER NOT NULL DEFAULT 0,
             status TEXT NOT NULL DEFAULT 'draft',
             word_count INTEGER NOT NULL DEFAULT 0,
+            notes TEXT NOT NULL DEFAULT '',
+            content TEXT NOT NULL DEFAULT '',
             updated_at TEXT NOT NULL
         );
 
@@ -54,6 +56,15 @@ pub fn init_book_db(conn: &Connection) -> Result<()> {
             from_id TEXT NOT NULL,
             to_id TEXT NOT NULL,
             label TEXT NOT NULL DEFAULT ''
+        );
+
+        CREATE TABLE IF NOT EXISTS characters (
+            id TEXT PRIMARY KEY NOT NULL,
+            name TEXT NOT NULL,
+            role TEXT NOT NULL DEFAULT '',
+            description TEXT NOT NULL DEFAULT '',
+            notes TEXT NOT NULL DEFAULT '',
+            updated_at TEXT NOT NULL
         );
         "#,
     )?;

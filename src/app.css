@@ -66,6 +66,26 @@ button {
   overflow: hidden;
 }
 
+/* Distraction-free writing mode */
+body.is-typing .editor-sidebar,
+body.is-typing .editor-header,
+body.is-typing .toolbar-container {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.5s ease;
+}
+
+body.is-typing .editor-sidebar {
+  transform: translateX(-10px);
+}
+
+.editor-sidebar,
+.editor-header,
+.toolbar-container {
+  transition: all 0.3s ease;
+}
+
 .app-main {
   flex: 1;
   overflow: auto;

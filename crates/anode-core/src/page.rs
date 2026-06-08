@@ -4,7 +4,7 @@ use chrono::Utc;
 use rusqlite::{params, Connection};
 use uuid::Uuid;
 
-use crate::models::{CompileOrderEntry, PageBody, PageKind, PageMeta};
+use crate::models::{CompileOrderEntry, PageBody, PageKind, PageMeta, SnapshotInfo};
 use crate::paths::{self, atomic_write, page_body_path, page_meta_path, snapshot_dir};
 use crate::Result;
 
@@ -47,6 +47,7 @@ impl PageService {
             sort_key,
             status: "draft".into(),
             word_count: 0,
+            notes: String::new(),
             updated_at: now,
         };
 
@@ -59,8 +60,8 @@ impl PageService {
         Self::write_body(book_dir, id, &body)?;
 
         conn.execute(
-            r#"INSERT INTO pages (id, kind, class, title, sort_key, status, word_count, updated_at)
-               VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)"#,
+            r#"INSERT INTO pages (id, kind, class, title, sort_key, status, word_count, notes, updated_at)
+               VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)"#,
             params![
                 id.to_string(),
                 kind_str,
@@ -69,6 +70,7 @@ impl PageService {
                 meta.sort_key,
                 meta.status,
                 meta.word_count,
+                meta.notes,
                 meta.updated_at.to_rfc3339(),
             ],
         )?;
@@ -91,34 +93,25 @@ impl PageService {
     pub fn list(library: &Path, book_id: Uuid) -> Result<Vec<PageMeta>> {
         let conn = crate::book::BookService::open_db(library, book_id)?;
         let mut stmt = conn.prepare(
-            "SELECT id, kind, class, title, sort_key, status, word_count, updated_at FROM pages ORDER BY sort_key ASC",
+            "SELECT id, kind, class, title, sort_key, status, word_count, notes, updated_at FROM pages ORDER BY sort_key ASC",
         )?;
         let rows = stmt.query_map([], |row| {
-            Ok((
-                row.get::<_, String>(0)?,
-                row.get::<_, String>(1)?,
-                row.get::<_, String>(2)?,
-                row.get::<_, String>(3)?,
-                row.get::<_, i64>(4)?,
-                row.get::<_, String>(5)?,
-                row.get::<_, u64>(6)?,
-                row.get::<_, String>(7)?,
-            ))
+            Ok(PageMeta {
+                id: Uuid::parse_str(&row.get::<_, String>(0)?).unwrap(),
+                kind: str_to_kind(&row.get::<_, String>(1)?),
+                class: row.get(2)?,
+                title: row.get(3)?,
+                sort_key: row.get(4)?,
+                status: row.get(5)?,
+                word_count: row.get(6)?,
+                notes: row.get(7)?,
+                updated_at: row.get::<_, String>(8)?.parse().unwrap_or_else(|_| Utc::now()),
+            })
         })?;
 
         let mut out = Vec::new();
         for row in rows {
-            let (id, kind, class, title, sort_key, status, word_count, updated_at) = row?;
-            out.push(PageMeta {
-                id: Uuid::parse_str(&id).map_err(|e| crate::AnodeError::msg(e.to_string()))?,
-                kind: str_to_kind(&kind),
-                class,
-                title,
-                sort_key,
-                status,
-                word_count,
-                updated_at: updated_at.parse().unwrap_or_else(|_| Utc::now()),
-            });
+            out.push(row?);
         }
         Ok(out)
     }
@@ -144,8 +137,8 @@ impl PageService {
         let conn = crate::book::BookService::open_db(library, book_id)?;
         let now = Utc::now().to_rfc3339();
         conn.execute(
-            "UPDATE pages SET word_count = ?1, updated_at = ?2 WHERE id = ?3",
-            params![body.word_count, now, page_id.to_string()],
+            "UPDATE pages SET word_count = ?1, content = ?2, updated_at = ?3 WHERE id = ?4",
+            params![body.word_count, body.plain_text_cache, now, page_id.to_string()],
         )?;
 
         Self::maybe_snapshot(&book_dir, page_id, body)?;
@@ -199,6 +192,81 @@ impl PageService {
         Ok(())
     }
 
+    pub fn update_meta(
+        library: &Path,
+        book_id: Uuid,
+        page_id: Uuid,
+        title: Option<String>,
+        sort_key: Option<i64>,
+        status: Option<String>,
+        notes: Option<String>,
+    ) -> Result<()> {
+        let conn = crate::book::BookService::open_db(library, book_id)?;
+        let mut updates = Vec::new();
+        let mut params: Vec<Box<dyn rusqlite::ToSql>> = Vec::new();
+
+        if let Some(t) = title {
+            updates.push("title = ?");
+            params.push(Box::new(t));
+        }
+        if let Some(s) = sort_key {
+            updates.push("sort_key = ?");
+            params.push(Box::new(s));
+        }
+        if let Some(st) = status {
+            updates.push("status = ?");
+            params.push(Box::new(st));
+        }
+        if let Some(n) = notes {
+            updates.push("notes = ?");
+            params.push(Box::new(n));
+        }
+
+        if updates.is_empty() {
+            return Ok(());
+        }
+
+        updates.push("updated_at = ?");
+        params.push(Box::new(Utc::now().to_rfc3339()));
+
+        let sql = format!(
+            "UPDATE pages SET {} WHERE id = ?",
+            updates.join(", ")
+        );
+        params.push(Box::new(page_id.to_string()));
+
+        let param_refs: Vec<&dyn rusqlite::ToSql> = params.iter().map(|p| p.as_ref()).collect();
+        conn.execute(&sql, rusqlite::params_from_iter(param_refs))?;
+
+        // Also update the meta.json file
+        let book_dir = paths::book_dir(library, book_id);
+        let meta_path = page_meta_path(&book_dir, page_id);
+        if meta_path.exists() {
+            // Reload from DB and write to meta.json to ensure sync
+            let updated_meta = conn.query_row(
+                "SELECT id, kind, class, title, sort_key, status, word_count, notes, updated_at FROM pages WHERE id = ?",
+                [page_id.to_string()],
+                |row| {
+                    Ok(PageMeta {
+                        id: Uuid::parse_str(&row.get::<_, String>(0)?).unwrap(),
+                        kind: str_to_kind(&row.get::<_, String>(1)?),
+                        class: row.get(2)?,
+                        title: row.get(3)?,
+                        sort_key: row.get(4)?,
+                        status: row.get(5)?,
+                        word_count: row.get(6)?,
+                        notes: row.get(7)?,
+                        updated_at: row.get::<_, String>(8)?.parse().unwrap_or_else(|_| Utc::now()),
+                    })
+                }
+            )?;
+            let meta_json = serde_json::to_string_pretty(&updated_meta)?;
+            atomic_write(&meta_path, meta_json.as_bytes())?;
+        }
+
+        Ok(())
+    }
+
     pub fn list_snapshots(book_dir: &Path, page_id: Uuid) -> Result<Vec<SnapshotInfo>> {
         let dir = snapshot_dir(book_dir, page_id);
         if !dir.exists() {
@@ -215,10 +283,11 @@ impl PageService {
         for entry in snaps {
             if let Ok(metadata) = entry.metadata() {
                 if let Ok(name) = entry.file_name().into_string() {
+                    let name_clone = name.clone();
                     result.push(SnapshotInfo {
                         filename: name,
                         timestamp: chrono::DateTime::parse_from_rfc3339(
-                            &format!("{}Z", &name.replace(".body.json", "")),
+                            &format!("{}Z", &name_clone.replace(".body.json", "")),
                         )
                         .ok()
                         .map(|dt| dt.with_timezone(&Utc).to_rfc3339())

@@ -27,6 +27,7 @@ export interface PageMeta {
   sort_key: number;
   status: string;
   word_count: number;
+  notes: string;
   updated_at: string;
 }
 
@@ -51,6 +52,29 @@ export interface SnapshotInfo {
   size_bytes: number;
 }
 
+export interface TodoItem {
+  id: string;
+  text: string;
+  done: boolean;
+  sort_key: number;
+  created_at: string;
+}
+
+export interface DailyQuest {
+  date: string;
+  word_count: number;
+  goal: number;
+}
+
+export interface Character {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  notes: string;
+  updated_at: string;
+}
+
 export const api = {
   isFirstRun: () => invoke<boolean>("is_first_run_cmd"),
   getConfig: () => invoke<{ library_path: string | null; first_run_complete: boolean; theme: string }>("get_config_cmd"),
@@ -70,6 +94,8 @@ export const api = {
   getCompileOrder: (bookId: string) => invoke<CompileOrderEntry[]>("get_compile_order", { bookId }),
   setCompileOrder: (bookId: string, entries: CompileOrderEntry[]) =>
     invoke<void>("set_compile_order", { bookId, entries }),
+  updatePageMeta: (bookId: string, pageId: string, meta: Partial<PageMeta>) =>
+    invoke<void>("update_page_meta", { bookId, pageId, meta }),
   listSnapshots: (bookId: string, pageId: string) =>
     invoke<SnapshotInfo[]>("list_snapshots", { bookId, pageId }),
   restoreSnapshot: (bookId: string, pageId: string, filename: string) =>
@@ -80,4 +106,32 @@ export const api = {
     invoke<string>("import_book_cmd", { anodePath }),
   exportDocx: (bookId: string, outputPath: string) =>
     invoke<void>("export_docx_cmd", { bookId, outputPath }),
+  // Todo API
+  listTodos: () => invoke<TodoItem[]>("list_todos"),
+  createTodo: (text: string) => invoke<TodoItem>("create_todo", { text }),
+  updateTodo: (id: string, changes: { text?: string; done?: boolean }) =>
+    invoke<void>("update_todo", { id, text: changes.text, done: changes.done }),
+  deleteTodo: (id: string) => invoke<void>("delete_todo", { id }),
+  toggleTodoDone: (id: string) => invoke<boolean>("toggle_todo_done", { id }),
+  // Quest API
+  getDailyQuest: () => invoke<DailyQuest>("get_daily_quest"),
+  getWeeklyQuests: () => invoke<DailyQuest[]>("get_weekly_quests"),
+  getHistoryQuests: (days: number) => invoke<DailyQuest[]>("get_history_quests", { days }),
+  // Character API
+  listCharacters: (bookId: string) => invoke<Character[]>("list_characters", { bookId }),
+  createCharacter: (bookId: string, name: string) =>
+    invoke<Character>("create_character", { bookId, name }),
+  updateCharacter: (bookId: string, id: string, changes: Partial<Character>) =>
+    invoke<void>("update_character", {
+      bookId,
+      id,
+      name: changes.name,
+      role: changes.role,
+      description: changes.description,
+      notes: changes.notes,
+    }),
+  deleteCharacter: (bookId: string, id: string) =>
+    invoke<void>("delete_character", { bookId, id }),
+  searchPages: (bookId: string, query: string) =>
+    invoke<PageMeta[]>("search_pages", { bookId, query }),
 };

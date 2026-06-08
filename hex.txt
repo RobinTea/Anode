@@ -1,0 +1,184 @@
+0000	7b 0d 0a 20 20 22 61 70  70 2e 6e 61 6d 65 22 3a   {..  "app.name":
+0010	20 22 41 6e 6f 64 65 22  2c 0d 0a 20 20 22 68 6f    "Anode",..  "ho
+0020	6d 65 2e 74 69 74 6c 65  22 3a 20 22 59 6f 75 72   me.title": "Your
+0030	20 62 6f 6f 6b 73 22 2c  0d 0a 20 20 22 68 6f 6d    books",..  "hom
+0040	65 2e 65 6d 70 74 79 22  3a 20 22 4e 6f 20 62 6f   e.empty": "No bo
+0050	6f 6b 73 20 79 65 74 22  2c 0d 0a 20 20 22 68 6f   oks yet",..  "ho
+0060	6d 65 2e 65 6d 70 74 79  48 69 6e 74 22 3a 20 22   me.emptyHint": "
+0070	43 72 65 61 74 65 20 79  6f 75 72 20 66 69 72 73   Create your firs
+0080	74 20 62 6f 6f 6b 20 6f  72 20 69 6d 70 6f 72 74   t book or import
+0090	20 61 20 73 68 61 72 65  64 20 2e 61 6e 6f 64 65    a shared .anode
+00a0	20 66 69 6c 65 22 2c 0d  0a 20 20 22 68 6f 6d 65    file",..  "home
+00b0	2e 63 72 65 61 74 65 42  6f 6f 6b 22 3a 20 22 43   .createBook": "C
+00c0	72 65 61 74 65 20 62 6f  6f 6b 22 2c 0d 0a 20 20   reate book",..  
+00d0	22 68 6f 6d 65 2e 69 6d  70 6f 72 74 53 68 61 72   "home.importShar
+00e0	65 64 22 3a 20 22 49 6d  70 6f 72 74 20 73 68 61   ed": "Import sha
+00f0	72 65 64 20 62 6f 6f 6b  22 2c 0d 0a 20 20 22 62   red book",..  "b
+0100	6f 6f 6b 2e 70 6c 61 6e  22 3a 20 22 50 6c 61 6e   ook.plan": "Plan
+0110	22 2c 0d 0a 20 20 22 62  6f 6f 6b 2e 77 72 69 74   ",..  "book.writ
+0120	65 22 3a 20 22 57 72 69  74 65 22 2c 0d 0a 20 20   e": "Write",..  
+0130	22 62 6f 6f 6b 2e 72 65  61 64 22 3a 20 22 52 65   "book.read": "Re
+0140	61 64 22 2c 0d 0a 20 20  22 62 6f 6f 6b 2e 63 6f   ad",..  "book.co
+0150	6d 70 69 6c 65 22 3a 20  22 43 6f 6d 70 69 6c 65   mpile": "Compile
+0160	22 2c 0d 0a 20 20 22 62  6f 6f 6b 2e 73 65 61 72   ",..  "book.sear
+0170	63 68 22 3a 20 22 53 65  61 72 63 68 20 74 68 69   ch": "Search thi
+0180	73 20 62 6f 6f 6b 22 2c  0d 0a 20 20 22 62 6f 6f   s book",..  "boo
+0190	6b 2e 61 64 64 50 6c 61  6e 50 61 67 65 22 3a 20   k.addPlanPage": 
+01a0	22 41 64 64 20 70 6c 61  6e 20 70 61 67 65 22 2c   "Add plan page",
+01b0	0d 0a 20 20 22 62 6f 6f  6b 2e 61 64 64 57 72 69   ..  "book.addWri
+01c0	74 65 50 61 67 65 22 3a  20 22 41 64 64 20 77 72   tePage": "Add wr
+01d0	69 74 65 20 70 61 67 65  22 2c 0d 0a 20 20 22 62   ite page",..  "b
+01e0	6f 6f 6b 2e 65 6d 70 74  79 57 72 69 74 65 22 3a   ook.emptyWrite":
+01f0	20 22 53 74 61 72 74 20  77 72 69 74 69 6e 67 e2    "Start writing.
+0200	80 a6 22 2c 0d 0a 20 20  22 62 6f 6f 6b 2e 65 6d   ..",..  "book.em
+0210	70 74 79 50 6c 61 6e 22  3a 20 22 41 64 64 20 6e   ptyPlan": "Add n
+0220	6f 74 65 73 20 6f 72 20  63 68 61 72 61 63 74 65   otes or characte
+0230	72 20 73 68 65 65 74 73  22 2c 0d 0a 20 20 22 66   r sheets",..  "f
+0240	69 72 73 74 52 75 6e 2e  74 69 74 6c 65 22 3a 20   irstRun.title": 
+0250	22 57 65 6c 63 6f 6d 65  20 74 6f 20 41 6e 6f 64   "Welcome to Anod
+0260	65 22 2c 0d 0a 20 20 22  66 69 72 73 74 52 75 6e   e",..  "firstRun
+0270	2e 6c 69 62 72 61 72 79  22 3a 20 22 43 68 6f 6f   .library": "Choo
+0280	73 65 20 77 68 65 72 65  20 74 6f 20 73 74 6f 72   se where to stor
+0290	65 20 79 6f 75 72 20 6c  69 62 72 61 72 79 22 2c   e your library",
+02a0	0d 0a 20 20 22 66 69 72  73 74 52 75 6e 2e 63 6f   ..  "firstRun.co
+02b0	6e 74 69 6e 75 65 22 3a  20 22 43 6f 6e 74 69 6e   ntinue": "Contin
+02c0	75 65 22 2c 0d 0a 20 20  22 66 69 72 73 74 52 75   ue",..  "firstRu
+02d0	6e 2e 6b 65 79 62 69 6e  64 73 22 3a 20 22 50 72   n.keybinds": "Pr
+02e0	65 73 73 20 3f 20 61 6e  79 74 69 6d 65 20 66 6f   ess ? anytime fo
+02f0	72 20 6b 65 79 62 6f 61  72 64 20 73 68 6f 72 74   r keyboard short
+0300	63 75 74 73 22 2c 0d 0a  20 20 22 73 74 61 74 75   cuts",..  "statu
+0310	73 2e 77 72 69 74 65 22  3a 20 22 57 52 49 54 45   s.write": "WRITE
+0320	22 2c 0d 0a 20 20 22 73  74 61 74 75 73 2e 63 6d   ",..  "status.cm
+0330	64 22 3a 20 22 43 4d 44  22 2c 0d 0a 20 20 22 73   d": "CMD",..  "s
+0340	74 61 74 75 73 2e 73 61  76 65 64 22 3a 20 22 53   tatus.saved": "S
+0350	61 76 65 64 22 2c 0d 0a  20 20 22 73 74 61 74 75   aved",..  "statu
+0360	73 2e 73 61 76 69 6e 67  22 3a 20 22 53 61 76 69   s.saving": "Savi
+0370	6e 67 e2 80 a6 22 2c 0d  0a 20 20 22 73 74 61 74   ng...",..  "stat
+0380	75 73 2e 77 6f 72 64 73  2e 70 61 67 65 22 3a 20   us.words.page": 
+0390	22 70 61 67 65 22 2c 0d  0a 20 20 22 73 74 61 74   "page",..  "stat
+03a0	75 73 2e 77 6f 72 64 73  2e 62 6f 6f 6b 22 3a 20   us.words.book": 
+03b0	22 62 6f 6f 6b 22 2c 0d  0a 20 20 22 73 74 61 74   "book",..  "stat
+03c0	75 73 2e 77 6f 72 64 73  2e 73 65 73 73 69 6f 6e   us.words.session
+03d0	22 3a 20 22 73 65 73 73  69 6f 6e 22 2c 0d 0a 20   ": "session",.. 
+03e0	20 22 73 65 74 74 69 6e  67 73 2e 74 69 74 6c 65    "settings.title
+03f0	22 3a 20 22 53 65 74 74  69 6e 67 73 22 2c 0d 0a   ": "Settings",..
+0400	20 20 22 73 65 74 74 69  6e 67 73 2e 6c 69 62 72     "settings.libr
+0410	61 72 79 50 61 74 68 22  3a 20 22 4c 69 62 72 61   aryPath": "Libra
+0420	72 79 20 70 61 74 68 22  2c 0d 0a 20 20 22 73 65   ry path",..  "se
+0430	74 74 69 6e 67 73 2e 74  68 65 6d 65 22 3a 20 22   ttings.theme": "
+0440	54 68 65 6d 65 22 2c 0d  0a 20 20 22 64 65 6c 65   Theme",..  "dele
+0450	74 65 2e 74 69 74 6c 65  22 3a 20 22 44 65 6c 65   te.title": "Dele
+0460	74 65 20 62 6f 6f 6b 22  2c 0d 0a 20 20 22 64 65   te book",..  "de
+0470	6c 65 74 65 2e 63 6f 6e  66 69 72 6d 22 3a 20 22   lete.confirm": "
+0480	54 79 70 65 20 74 68 65  20 62 6f 6f 6b 20 74 69   Type the book ti
+0490	74 6c 65 20 74 6f 20 63  6f 6e 66 69 72 6d 20 64   tle to confirm d
+04a0	65 6c 65 74 69 6f 6e 22  2c 0d 0a 20 20 22 64 65   eletion",..  "de
+04b0	6c 65 74 65 2e 70 6c 61  63 65 68 6f 6c 64 65 72   lete.placeholder
+04c0	22 3a 20 22 54 79 70 65  20 74 68 65 20 62 6f 6f   ": "Type the boo
+04d0	6b 20 74 69 74 6c 65 20  68 65 72 65 22 2c 0d 0a   k title here",..
+04e0	20 20 22 64 65 6c 65 74  65 2e 63 61 6e 63 65 6c     "delete.cancel
+04f0	22 3a 20 22 43 61 6e 63  65 6c 22 2c 0d 0a 20 20   ": "Cancel",..  
+0500	22 64 65 6c 65 74 65 2e  63 6f 6e 66 69 72 6d 5f   "delete.confirm_
+0510	62 75 74 74 6f 6e 22 3a  20 22 44 65 6c 65 74 65   button": "Delete
+0520	20 70 65 72 6d 61 6e 65  6e 74 6c 79 22 2c 0d 0a    permanently",..
+0530	20 20 22 72 65 63 6f 76  65 72 79 2e 74 69 74 6c     "recovery.titl
+0540	65 22 3a 20 22 52 65 63  6f 76 65 72 20 66 72 6f   e": "Recover fro
+0550	6d 20 63 72 61 73 68 22  2c 0d 0a 20 20 22 72 65   m crash",..  "re
+0560	63 6f 76 65 72 79 2e 64  65 73 63 72 69 70 74 69   covery.descripti
+0570	6f 6e 22 3a 20 22 41 6e  6f 64 65 20 64 65 74 65   on": "Anode dete
+0580	63 74 65 64 20 74 68 61  74 20 74 68 65 20 61 70   cted that the ap
+0590	70 20 77 61 73 20 63 6c  6f 73 65 64 20 75 6e 65   p was closed une
+05a0	78 70 65 63 74 65 64 6c  79 2e 20 59 6f 75 20 63   xpectedly. You c
+05b0	61 6e 20 6b 65 65 70 20  79 6f 75 72 20 6c 61 74   an keep your lat
+05c0	65 73 74 20 63 68 61 6e  67 65 73 20 6f 72 20 72   est changes or r
+05d0	65 73 74 6f 72 65 20 66  72 6f 6d 20 61 6e 20 6f   estore from an o
+05e0	6c 64 65 72 20 73 6e 61  70 73 68 6f 74 2e 22 2c   lder snapshot.",
+05f0	0d 0a 20 20 22 72 65 63  6f 76 65 72 79 2e 6b 65   ..  "recovery.ke
+0600	65 70 4c 61 74 65 73 74  22 3a 20 22 4b 65 65 70   epLatest": "Keep
+0610	20 6c 61 74 65 73 74 20  63 68 61 6e 67 65 73 22    latest changes"
+0620	2c 0d 0a 20 20 22 72 65  63 6f 76 65 72 79 2e 72   ,..  "recovery.r
+0630	65 76 65 72 74 4f 6c 64  65 72 22 3a 20 22 52 65   evertOlder": "Re
+0640	73 74 6f 72 65 20 66 72  6f 6d 20 73 6e 61 70 73   store from snaps
+0650	68 6f 74 22 2c 0d 0a 20  20 22 72 65 63 6f 76 65   hot",..  "recove
+0660	72 79 2e 73 65 6c 65 63  74 50 61 67 65 22 3a 20   ry.selectPage": 
+0670	22 53 65 6c 65 63 74 20  61 20 70 61 67 65 20 74   "Select a page t
+0680	6f 20 72 65 73 74 6f 72  65 22 2c 0d 0a 20 20 22   o restore",..  "
+0690	72 65 63 6f 76 65 72 79  2e 73 65 6c 65 63 74 50   recovery.selectP
+06a0	61 67 65 50 6c 61 63 65  68 6f 6c 64 65 72 22 3a   agePlaceholder":
+06b0	20 22 43 68 6f 6f 73 65  20 61 20 70 61 67 65 e2    "Choose a page.
+06c0	80 a6 22 2c 0d 0a 20 20  22 72 65 63 6f 76 65 72   ..",..  "recover
+06d0	79 2e 73 65 6c 65 63 74  53 6e 61 70 73 68 6f 74   y.selectSnapshot
+06e0	22 3a 20 22 53 65 6c 65  63 74 20 61 20 73 6e 61   ": "Select a sna
+06f0	70 73 68 6f 74 22 2c 0d  0a 20 20 22 72 65 63 6f   pshot",..  "reco
+0700	76 65 72 79 2e 72 65 73  74 6f 72 65 22 3a 20 22   very.restore": "
+0710	52 65 73 74 6f 72 65 20  73 6e 61 70 73 68 6f 74   Restore snapshot
+0720	22 2c 0d 0a 20 20 22 72  65 63 6f 76 65 72 79 2e   ",..  "recovery.
+0730	63 61 6e 63 65 6c 22 3a  20 22 43 6f 6e 74 69 6e   cancel": "Contin
+0740	75 65 20 61 6e 79 77 61  79 22 2c 0d 0a 20 20 22   ue anyway",..  "
+0750	72 65 63 6f 76 65 72 79  2e 6e 6f 53 6e 61 70 73   recovery.noSnaps
+0760	68 6f 74 73 22 3a 20 22  4e 6f 20 73 6e 61 70 73   hots": "No snaps
+0770	68 6f 74 73 20 61 76 61  69 6c 61 62 6c 65 20 66   hots available f
+0780	6f 72 20 74 68 69 73 20  70 61 67 65 22 2c 0d 0a   or this page",..
+0790	20 20 22 62 6f 6f 6b 2e  65 78 70 6f 72 74 22 3a     "book.export":
+07a0	20 22 45 78 70 6f 72 74  20 61 73 20 2e 61 6e 6f    "Export as .ano
+07b0	64 65 22 2c 0d 0a 20 20  22 62 6f 6f 6b 2e 69 6d   de",..  "book.im
+07c0	70 6f 72 74 53 68 61 72  65 64 22 3a 20 22 49 6d   portShared": "Im
+07d0	70 6f 72 74 20 2e 61 6e  6f 64 65 20 66 69 6c 65   port .anode file
+07e0	22 2c 0d 0a 20 20 22 65  78 70 6f 72 74 2e 74 69   ",..  "export.ti
+07f0	74 6c 65 22 3a 20 22 45  78 70 6f 72 74 20 62 6f   tle": "Export bo
+0800	6f 6b 22 2c 0d 0a 20 20  22 65 78 70 6f 72 74 2e   ok",..  "export.
+0810	69 6e 63 6c 75 64 65 53  6e 61 70 73 68 6f 74 73   includeSnapshots
+0820	22 3a 20 22 49 6e 63 6c  75 64 65 20 73 6e 61 70   ": "Include snap
+0830	73 68 6f 74 73 20 69 6e  20 65 78 70 6f 72 74 22   shots in export"
+0840	2c 0d 0a 20 20 22 65 78  70 6f 72 74 2e 62 75 74   ,..  "export.but
+0850	74 6f 6e 22 3a 20 22 45  78 70 6f 72 74 22 2c 0d   ton": "Export",.
+0860	0a 20 20 22 65 78 70 6f  72 74 2e 64 6f 63 78 22   .  "export.docx"
+0870	3a 20 22 45 78 70 6f 72  74 20 61 73 20 44 4f 43   : "Export as DOC
+0880	58 22 2c 0d 0a 20 20 22  65 78 70 6f 72 74 2e 64   X",..  "export.d
+0890	6f 63 78 2e 74 69 74 6c  65 22 3a 20 22 45 78 70   ocx.title": "Exp
+08a0	6f 72 74 20 74 6f 20 57  6f 72 64 22 2c 0d 0a 20   ort to Word",.. 
+08b0	20 22 74 6f 6f 6c 62 61  72 2e 62 6f 6c 64 22 3a    "toolbar.bold":
+08c0	20 22 42 6f 6c 64 22 2c  0d 0a 20 20 22 74 6f 6f    "Bold",..  "too
+08d0	6c 62 61 72 2e 69 74 61  6c 69 63 22 3a 20 22 49   lbar.italic": "I
+08e0	74 61 6c 69 63 22 2c 0d  0a 20 20 22 74 6f 6f 6c   talic",..  "tool
+08f0	62 61 72 2e 68 31 22 3a  20 22 48 65 61 64 69 6e   bar.h1": "Headin
+0900	67 20 31 22 2c 0d 0a 20  20 22 74 6f 6f 6c 62 61   g 1",..  "toolba
+0910	72 2e 68 32 22 3a 20 22  48 65 61 64 69 6e 67 20   r.h2": "Heading 
+0920	32 22 2c 0d 0a 20 20 22  74 6f 6f 6c 62 61 72 2e   2",..  "toolbar.
+0930	68 33 22 3a 20 22 48 65  61 64 69 6e 67 20 33 22   h3": "Heading 3"
+0940	2c 0d 0a 20 20 22 74 6f  6f 6c 62 61 72 2e 62 75   ,..  "toolbar.bu
+0950	6c 6c 65 74 22 3a 20 22  42 75 6c 6c 65 74 20 4c   llet": "Bullet L
+0960	69 73 74 22 2c 0d 0a 20  20 22 74 6f 6f 6c 62 61   ist",..  "toolba
+0970	72 2e 6e 75 6d 62 65 72  65 64 22 3a 20 22 4e 75   r.numbered": "Nu
+0980	6d 62 65 72 65 64 20 4c  69 73 74 22 2c 0d 0a 20   mbered List",.. 
+0990	20 22 74 6f 6f 6c 62 61  72 2e 71 75 6f 74 65 22    "toolbar.quote"
+09a0	3a 20 22 51 75 6f 74 65  22 2c 0d 0a 20 20 22 74   : "Quote",..  "t
+09b0	6f 6f 6c 62 61 72 2e 63  6f 64 65 22 3a 20 22 43   oolbar.code": "C
+09c0	6f 64 65 22 2c 0d 0a 20  20 22 74 6f 6f 6c 62 61   ode",..  "toolba
+09d0	72 2e 6c 69 6e 6b 22 3a  20 22 4c 69 6e 6b 22 2c   r.link": "Link",
+09e0	0d 0a 20 20 22 74 6f 6f  6c 62 61 72 2e 63 6c 65   ..  "toolbar.cle
+09f0	61 72 22 3a 20 22 43 6c  65 61 72 20 46 6f 72 6d   ar": "Clear Form
+0a00	61 74 22 2c 0d 0a 20 20  22 6c 6f 61 64 69 6e 67   at",..  "loading
+0a10	22 3a 20 22 4c 6f 61 64  69 6e 67 22 2c 0d 0a 20   ": "Loading",.. 
+0a20	20 22 74 6f 64 6f 73 2e  74 69 74 6c 65 22 3a 20    "todos.title": 
+0a30	22 54 6f 64 6f 73 22 2c  0d 0a 20 20 22 74 6f 64   "Todos",..  "tod
+0a40	6f 73 2e 61 64 64 22 3a  20 22 41 64 64 20 74 61   os.add": "Add ta
+0a50	73 6b 22 2c 0d 0a 20 20  22 74 6f 64 6f 73 2e 65   sk",..  "todos.e
+0a60	6d 70 74 79 22 3a 20 22  4e 6f 20 74 61 73 6b 73   mpty": "No tasks
+0a70	20 79 65 74 2e 20 41 64  64 20 6f 6e 65 20 74 6f    yet. Add one to
+0a80	20 67 65 74 20 73 74 61  72 74 65 64 2e 22 2c 0d    get started.",.
+0a90	0a 20 20 22 74 6f 64 6f  73 2e 64 65 6c 65 74 65   .  "todos.delete
+0aa0	22 3a 20 22 44 65 6c 65  74 65 22 2c 0d 0a 20 20   ": "Delete",..  
+0ab0	22 71 75 65 73 74 73 2e  74 69 74 6c 65 22 3a 20   "quests.title": 
+0ac0	22 44 61 69 6c 79 20 51  75 65 73 74 22 2c 0d 0a   "Daily Quest",..
+0ad0	20 20 22 71 75 65 73 74  73 2e 74 6f 64 61 79 22     "quests.today"
+0ae0	3a 20 22 54 6f 64 61 79  27 73 20 47 6f 61 6c 22   : "Today's Goal"
+0af0	2c 0d 0a 20 20 22 71 75  65 73 74 73 2e 70 72 6f   ,..  "quests.pro
+0b00	67 72 65 73 73 22 3a 20  22 7b 63 75 72 72 65 6e   gress": "{curren
+0b10	74 7d 20 6f 66 20 7b 67  6f 61 6c 7d 20 77 6f 72   t} of {goal} wor
+0b20	64 73 22 2c 0d 0a 20 20  22 71 75 65 73 74 73 2e   ds",..  "quests.
+0b30	63 6f 6d 70 6c 65 74 65  64 22 3a 20 22 47 6f 61   completed": "Goa
+0b40	6c 20 72 65 61 63 68 65  64 21 22 2c 0d 0a 20 20   l reached!",..  
+0b50	22 71 75 65 73 74 73 2e  77 65 65 6b 6c 79 22 3a   "quests.weekly":
+0b60	20 22 54 68 69 73 20 57  65 65 6b 22 2c 0d 0a 7d    "This Week",..}
+0b70	0d 0a                                              ..

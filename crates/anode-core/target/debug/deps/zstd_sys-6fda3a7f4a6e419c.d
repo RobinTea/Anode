@@ -1,0 +1,9 @@
+C:\Users\Robin\Desktop\projskh\Anode\crates\anode-core\target\debug\deps\zstd_sys-6fda3a7f4a6e419c.d: C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\lib.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zstd.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zdict.rs
+
+C:\Users\Robin\Desktop\projskh\Anode\crates\anode-core\target\debug\deps\libzstd_sys-6fda3a7f4a6e419c.rlib: C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\lib.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zstd.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zdict.rs
+
+C:\Users\Robin\Desktop\projskh\Anode\crates\anode-core\target\debug\deps\libzstd_sys-6fda3a7f4a6e419c.rmeta: C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\lib.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zstd.rs C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zdict.rs
+
+C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\lib.rs:
+C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zstd.rs:
+C:\Users\Robin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\zstd-sys-2.0.16+zstd.1.5.7\src\bindings_zdict.rs:

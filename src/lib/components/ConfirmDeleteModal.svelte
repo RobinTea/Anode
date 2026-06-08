@@ -50,7 +50,7 @@
         autofocus
       />
       <div class="modal-actions">
-        <button class="btn btn-secondary" onclick={handleCancel}>{t("delete.cancel")}</button>
+        <button class="btn" onclick={handleCancel}>{t("delete.cancel")}</button>
         <button class="btn btn-danger" disabled={!isValid} onclick={handleConfirm}>
           {t("delete.confirm_button")}
         </button>
@@ -68,6 +68,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(2px);
   }
 
   .modal {
@@ -77,13 +78,13 @@
     padding: 1.5rem;
     max-width: 400px;
     width: 90%;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
 
   h2 {
     margin: 0 0 0.5rem 0;
     font-size: 1.1rem;
-    color: var(--text);
+    color: #ef4444;
   }
 
   p {
@@ -98,12 +99,14 @@
     border-radius: 6px;
     padding: 0.75rem;
     margin: 0.75rem 0;
+    text-align: center;
   }
 
   code {
     font-family: monospace;
-    color: var(--accent);
-    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 1rem;
     word-break: break-all;
   }
 
@@ -119,12 +122,6 @@
     box-sizing: border-box;
   }
 
-  input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--accent-light);
-  }
-
   .modal-actions {
     display: flex;
     gap: 0.75rem;
@@ -132,12 +129,13 @@
   }
 
   .btn-danger {
-    background: #dc2626;
+    background: #ef4444;
     color: white;
+    border: none;
   }
 
   .btn-danger:hover:not(:disabled) {
-    background: #b91c1c;
+    background: #dc2626;
   }
 
   .btn-danger:disabled {

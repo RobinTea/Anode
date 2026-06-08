@@ -1,5 +1,4 @@
 use sha2::{Sha256, Digest};
-use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 use uuid::Uuid;
@@ -34,6 +33,9 @@ pub fn export_book(
     include_snapshots: bool,
     output_path: &Path,
 ) -> Result<()> {
+    if book_id.is_nil() {
+        return export_library(library, include_snapshots, output_path);
+    }
     let book_dir = book_dir(library, book_id);
     if !book_dir.exists() {
         return Err(AnodeError::msg("Book directory not found"));
@@ -101,13 +103,97 @@ pub fn export_book(
     Ok(())
 }
 
+pub fn export_library(
+    library: &Path,
+    include_snapshots: bool,
+    output_path: &Path,
+) -> Result<()> {
+    let mut payload = Vec::new();
+    let mut files = Vec::new();
+    let mut current_offset: u64 = 0;
+
+    // Collect library.db
+    let db_path = library.join("library.db");
+    if db_path.exists() {
+        let data = fs::read(&db_path)?;
+        let compressed = zstd::encode_all(data.as_slice(), 5)?;
+        let mut hasher = Sha256::new();
+        hasher.update(&data);
+        let hash = format!("{:x}", hasher.finalize());
+
+        files.push(ExportFile {
+            path: "library.db".to_string(),
+            offset: current_offset,
+            compressed_size: compressed.len() as u64,
+            uncompressed_size: data.len() as u64,
+            sha256: hash,
+        });
+        payload.extend_from_slice(&compressed);
+        current_offset += compressed.len() as u64;
+    }
+
+    // Collect all books
+    let books_dir = library.join("books");
+    if books_dir.exists() {
+        for entry in fs::read_dir(&books_dir)? {
+            let entry = entry?;
+            if entry.path().is_dir() {
+                let book_id_str = entry.file_name().to_string_lossy().into_owned();
+                let book_files = collect_export_files(&entry.path(), include_snapshots)?;
+                for rel_path in book_files {
+                    let full_path = entry.path().join(&rel_path);
+                    let data = fs::read(&full_path)?;
+                    let compressed = zstd::encode_all(data.as_slice(), 5)?;
+                    let mut hasher = Sha256::new();
+                    hasher.update(&data);
+                    let hash = format!("{:x}", hasher.finalize());
+
+                    files.push(ExportFile {
+                        path: format!("books/{}/{}", book_id_str, rel_path),
+                        offset: current_offset,
+                        compressed_size: compressed.len() as u64,
+                        uncompressed_size: data.len() as u64,
+                        sha256: hash,
+                    });
+                    payload.extend_from_slice(&compressed);
+                    current_offset += compressed.len() as u64;
+                }
+            }
+        }
+    }
+
+    // Create manifest
+    let manifest = ExportManifest {
+        format_version: FORMAT_VERSION,
+        book_id: "library-backup".to_string(),
+        created_at: chrono::Utc::now().to_rfc3339(),
+        include_snapshots,
+        files,
+    };
+
+    let manifest_json = serde_json::to_vec(&manifest)?;
+    let manifest_compressed = zstd::encode_all(manifest_json.as_slice(), 5)?;
+
+    // Write file
+    let mut output = Vec::new();
+    output.extend_from_slice(MAGIC_HEADER);
+    output.extend_from_slice(&FORMAT_VERSION.to_le_bytes());
+    output.extend_from_slice(&(current_offset as u64).to_le_bytes());
+    output.extend_from_slice(&(manifest_compressed.len() as u64).to_le_bytes());
+    output.extend_from_slice(&payload);
+    output.extend_from_slice(&manifest_compressed);
+
+    fs::write(output_path, output)?;
+    Ok(())
+}
+
 pub fn import_book(
     library: &Path,
     anode_path: &Path,
 ) -> Result<Uuid> {
     let data = fs::read(anode_path)?;
     
-    if data.len() < 20 {
+    if data.len() < 24 {
         return Err(AnodeError::msg("Invalid .anode file: too small"));
     }
 
@@ -137,6 +223,10 @@ pub fn import_book(
     let manifest_compressed = &data[manifest_offset..manifest_offset + manifest_size];
     let manifest_json = zstd::decode_all(manifest_compressed)?;
     let manifest: ExportManifest = serde_json::from_slice(&manifest_json)?;
+
+    if manifest.book_id == "library-backup" {
+        return import_library(library, &data[24..24 + payload_size], &manifest);
+    }
 
     // Create book directory
     let book_id = Uuid::parse_str(&manifest.book_id)
@@ -174,6 +264,30 @@ pub fn import_book(
     crate::book::BookService::rebuild_search_index(library, book_id)?;
 
     Ok(book_id)
+}
+
+fn import_library(library: &Path, payload: &[u8], manifest: &ExportManifest) -> Result<Uuid> {
+    for file_info in &manifest.files {
+        let compressed_data = &payload[file_info.offset as usize..
+            (file_info.offset + file_info.compressed_size) as usize];
+        let decompressed = zstd::decode_all(compressed_data)?;
+
+        // Verify hash
+        let mut hasher = Sha256::new();
+        hasher.update(&decompressed);
+        let hash = format!("{:x}", hasher.finalize());
+        if hash != file_info.sha256 {
+            return Err(AnodeError::msg(format!("Hash mismatch for file: {}", file_info.path)));
+        }
+
+        // Write file relative to library root
+        let file_path = library.join(&file_info.path);
+        if let Some(parent) = file_path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        fs::write(&file_path, decompressed)?;
+    }
+    Ok(Uuid::nil())
 }
 
 fn collect_export_files(book_dir: &Path, include_snapshots: bool) -> Result<Vec<String>> {

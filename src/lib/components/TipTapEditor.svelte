@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
-  import { Editor } from "@tiptap/core";
+  import { Editor, Mark, mergeAttributes } from "@tiptap/core";
   import StarterKit from "@tiptap/starter-kit";
   import Link from "@tiptap/extension-link";
   import Placeholder from "@tiptap/extension-placeholder";
@@ -35,6 +35,27 @@
   let saveTimer: ReturnType<typeof setTimeout> | undefined;
   let lastDoc: Record<string, unknown> = initialDoc;
   let isRestoringUndo = false;
+  let isTyping = $state(false);
+  let typingTimer: ReturnType<typeof setTimeout> | undefined;
+
+  const Comment = Mark.create({
+    name: 'comment',
+    addAttributes() {
+      return {
+        comment: {
+          default: null,
+          parseHTML: element => element.getAttribute('data-comment'),
+          renderHTML: attributes => ({ 'data-comment': attributes.comment }),
+        },
+      }
+    },
+    parseHTML() {
+      return [{ tag: 'span[data-comment]' }]
+    },
+    renderHTML({ HTMLAttributes }) {
+      return ['span', mergeAttributes(HTMLAttributes, { class: 'inline-comment' }), 0]
+    },
+  });
 
   onMount(() => {
     editor = new Editor({
@@ -46,6 +67,7 @@
           autolink: true,
         }),
         Placeholder.configure({ placeholder }),
+        Comment,
       ],
       content: initialDoc,
       editable,
@@ -57,6 +79,16 @@
       },
       onUpdate: ({ editor: ed }) => {
         if (isRestoringUndo) return;
+
+        // Auto-minimize UI while typing
+        isTyping = true;
+        document.body.classList.add("is-typing");
+        if (typingTimer) clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+          isTyping = false;
+          document.body.classList.remove("is-typing");
+        }, 2000);
+
         const json = ed.getJSON() as Record<string, unknown>;
         const plain = ed.getText();
         const words = plain.split(/\s+/).filter(Boolean).length;
@@ -94,6 +126,7 @@
 
   onDestroy(() => {
     if (saveTimer) clearTimeout(saveTimer);
+    if (typingTimer) clearTimeout(typingTimer);
     editor?.destroy();
   });
 
@@ -125,24 +158,29 @@
   <FormattingToolbar {editor} />
 {/if}
 
-<div class="editor-wrap" class:pages-mode={pagesMode} class:void-mode={!pagesMode}>
+<div class="editor-wrap" class:pages-mode={pagesMode} class:void-mode={!pagesMode} class:is-typing={isTyping}>
   <div class="editor-surface" bind:this={element}></div>
 </div>
 
 <style>
   .editor-wrap {
     height: 100%;
-    overflow: auto;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
   }
 
+  /* Page Mode: Fixed paper-like layout */
   .editor-wrap.pages-mode :global(.ProseMirror) {
+    width: 100%;
     max-width: 816px;
     min-height: 1056px;
-    margin: 0 auto 1.5rem;
+    margin: 2rem auto;
     padding: 72px 72px 96px;
     background: var(--bg-elevated);
-    box-shadow: 0 2px 12px var(--page-shadow);
+    box-shadow: 0 4px 15px var(--page-shadow);
     border: 1px solid var(--border);
     font-family: var(--font-prose);
     font-size: 12pt;
@@ -158,13 +196,16 @@
     pointer-events: none;
   }
 
+  /* Void Mode: Continuous vertical writing */
   .editor-wrap.void-mode :global(.ProseMirror) {
     max-width: 720px;
-    margin: 0 auto;
-    min-height: 100%;
+    width: 100%;
+    margin: 4rem auto;
+    min-height: 100vh;
     outline: none;
     font-family: var(--font-prose);
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
   }
 
   :global(.ProseMirror a) {
@@ -197,5 +238,26 @@
     margin-left: 0;
     font-style: italic;
     color: var(--text-muted);
+  }
+
+  :global(.inline-comment) {
+    background-color: #fef08a;
+    border-bottom: 2px solid #eab308;
+    cursor: help;
+  }
+
+  :global(.inline-comment:hover::after) {
+    content: attr(data-comment);
+    position: absolute;
+    background: #1a1a1a;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    max-width: 200px;
+    white-space: normal;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 </style>
