@@ -1,0 +1,24 @@
+[package]
+name = "anode"
+version = "0.1.0"
+description = "Anode — local-first novelist writing app"
+authors = ["Anode contributors"]
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "anode_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+anode-core = { path = "../crates/anode-core" }
+chrono = { version = "0.4", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+uuid = { version = "1", features = ["serde"] }
